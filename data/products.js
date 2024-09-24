@@ -151,25 +151,6 @@ const products = [
     ]
   },
   {
-    id: "5968897c-4d27-4872-89f6-5bcb052746d7",
-    image: "images/products/women-chiffon-beachwear-coverup-black.jpg",
-    name: "Women's Chiffon Beachwear Cover Up - Black",
-    rating: {
-      stars: 4.5,
-      count: 235
-    },
-    priceCents: 2070,
-    keywords: [
-      "robe",
-      "swimsuit",
-      "swimming",
-      "bathing",
-      "apparel"
-    ],
-    type: "clothing",
-    sizeChartLink: "images/clothing-size-chart.png"
-  },
-  {
     id: "aad29d11-ea98-41ee-9285-b916638cac4a",
     image: "images/products/round-sunglasses-black.jpg",
     name: "Round Sunglasses",
@@ -292,25 +273,6 @@ const products = [
       "accessories",
       "womens"
     ]
-  },
-  {
-    id: "b0f17cc5-8b40-4ca5-9142-b61fe3d98c85",
-    image: "images/products/women-stretch-popover-hoodie-black.jpg",
-    name: "Women's Stretch Popover Hoodie",
-    rating: {
-      stars: 4.5,
-      count: 2465
-    },
-    priceCents: 1374,
-    keywords: [
-      "hooded",
-      "hoodies",
-      "sweaters",
-      "womens",
-      "apparel"
-    ],
-    type: "clothing",
-    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "a93a101d-79ef-4cf3-a6cf-6dbe532a1b4a",
@@ -487,23 +449,6 @@ const products = [
       "washroom",
       "mirrors",
       "home"
-    ]
-  },
-  {
-    id: "a45cfa0a-66d6-4dc7-9475-e2b01595f7d7",
-    image: "images/products/women-french-terry-fleece-jogger-camo.jpg",
-    name: "Women's Fleece Jogger Sweatpant",
-    rating: {
-      stars: 4.5,
-      count: 248
-    },
-    priceCents: 2400,
-    keywords: [
-      "pants",
-      "sweatpants",
-      "jogging",
-      "apparel",
-      "womens"
     ]
   },
   {
