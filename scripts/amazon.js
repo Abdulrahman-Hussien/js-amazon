@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 
 let productsHTML = '';
@@ -59,53 +59,45 @@ document.querySelector('.js-products-grid')
   .innerHTML = productsHTML;
 
 const addedMessageTimeouts = {};
+function addedToCartMessage(productId) {
+  //activate the 'Added' feature
+  document.querySelector(`.js-added-${productId}`)
+    .classList.add('added-to-cart-enabled');
+
+  const previousTimeoutId = addedMessageTimeouts[productId];
+  if (previousTimeoutId) {
+    clearTimeout(previousTimeoutId);
+  }
+
+  const timeoutId = setTimeout(() => {
+    document.querySelector(`.js-added-${productId}`)
+      .classList.remove('added-to-cart-enabled');
+  }, 2000);
+  addedMessageTimeouts[productId] = timeoutId;
+}
+
+function cartQuantity() {
+  //get the total quantity of products
+  let cartQuantity = 0;
+  cart.forEach(cartItem => {
+    cartQuantity += cartItem.quantity;
+  });
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity;
+}
 
 document.querySelectorAll('.js-add-to-cart')
   .forEach(button => {
     button.addEventListener('click', () => {
       //const productId = button.dataset.productId;
-      const {productId} = button.dataset;
-
-      //activate the 'Added' feature
-      document.querySelector(`.js-added-${productId}`)
-        .classList.add('added-to-cart-enabled');
-      const previousTimeoutId = addedMessageTimeouts[productId];
-      if(previousTimeoutId){
-        clearTimeout(previousTimeoutId);
-      }
-      const timeoutId = setTimeout(() => {
-        document.querySelector(`.js-added-${productId}`)
-          .classList.remove('added-to-cart-enabled');
-      }, 2000);
-      addedMessageTimeouts[productId] = timeoutId;
+      const { productId } = button.dataset;
+      addedToCartMessage(productId);
 
       //activate the quantity selector
       const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
 
-      //check matching items to add quantity
-      let matchingItem;
-      cart.forEach(item => {
-        if (item.productId === productId) {
-          matchingItem = item;
-        }
-      });
-      if (matchingItem) {
-        matchingItem.quantity += quantity;
-      } else {
-        cart.push({
-          productId,
-          quantity
-        });
-      }
-
-      //get the total quantity of products
-      let cartQuantity = 0;
-      cart.forEach(item => {
-        cartQuantity += item.quantity;
-      });
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
-    
-    console.log(cart);
+      addToCart(productId, quantity);
+      cartQuantity();
+      console.log(cart);
     });
   });
