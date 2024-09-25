@@ -99,6 +99,5 @@ document.querySelectorAll('.js-add-to-cart')
 
       addToCart(productId, quantity);
       cartQuantity();
-      console.log(cart);
     });
   });
