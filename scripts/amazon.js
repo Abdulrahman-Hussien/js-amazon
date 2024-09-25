@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+
 let productsHTML = '';
 
 products.forEach(product => {
@@ -40,7 +42,7 @@ products.forEach(product => {
 
 <div class="product-spacer"></div>
 
-<div class="added-to-cart">
+<div class="added-to-cart js-added-${product.id}">
   <img src="images/icons/checkmark.png">
   Added
 </div>
@@ -55,13 +57,29 @@ data-product-id="${product.id}">
 document.querySelector('.js-products-grid')
   .innerHTML = productsHTML;
 
+const addedMessageTimeouts = {};
+
 document.querySelectorAll('.js-add-to-cart')
   .forEach(button => {
     button.addEventListener('click', () => {
-      const productId = button.dataset.productId;
+      //const productId = button.dataset.productId;
+      const {productId} = button.dataset;
+
+      //activate the 'Added' feature
+      document.querySelector(`.js-added-${productId}`)
+        .classList.add('added-to-cart-enabled');
+      const previousTimeoutId = addedMessageTimeouts[productId];
+      if(previousTimeoutId){
+        clearTimeout(previousTimeoutId);
+      }
+      const timeoutId = setTimeout(() => {
+        document.querySelector(`.js-added-${productId}`)
+          .classList.remove('added-to-cart-enabled');
+      }, 2000);
+      addedMessageTimeouts[productId] = timeoutId;
 
       //activate the quantity selector
-      const quantityvalue = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
+      const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
 
       //check matching items to add quantity
       let matchingItem;
@@ -71,11 +89,11 @@ document.querySelectorAll('.js-add-to-cart')
         }
       });
       if (matchingItem) {
-        matchingItem.quantity += quantityvalue;
+        matchingItem.quantity += quantity;
       } else {
         cart.push({
           productId,
-          quantity: quantityvalue
+          quantity
         });
       }
 
