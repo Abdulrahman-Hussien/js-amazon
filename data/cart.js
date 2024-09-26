@@ -33,6 +33,24 @@ export function addToCart(productId, quantity) {
   saveToStorage();
 }
 
+export function cartQuantity() {
+  //get the total quantity of products
+  let cartQuantity = 0;
+  cart.forEach(cartItem => {
+    cartQuantity += cartItem.quantity;
+  });
+  return cartQuantity;
+}
+
+export function updateQuantity(productId, newQuantity){
+  cart.forEach(cartItem => {
+    if(cartItem.productId === productId){
+      cartItem.quantity = newQuantity;
+    }
+  });
+  saveToStorage();
+}
+
 export function removeFromCart(productId){
   let newCart = [];
   cart.forEach(cartItem => {
